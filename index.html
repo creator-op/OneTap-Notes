@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover, user-scalable=no">
+    <title>OneTap Notes</title>
+    <link rel="manifest" href="./manifest.json">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="default">
+    <meta name="apple-mobile-web-app-title" content="OneTap Notes">
+    <link rel="apple-touch-icon" href="./icon-192x192.png">
+    <link rel="manifest" href="manifest.json" />
+<meta name="theme-color" content="#FDFBF3">
+
+
+    <meta name="theme-color" content="#FDFBF3"/>
+    <link href="https://fonts.googleapis.com/css2?family=Lora:wght@400;700&family=Inter:wght@400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="./style.css">
+</head>
+<body data-theme="light">
+    <div class="app-container">
+        <header class="app-header">
+            <button class="back-button" aria-label="Go back">
+                <svg xmlns="http://www.w3.org/2000/svg" width="13" height="24" viewBox="0 0 13 24" fill="none">
+                  <path d="M11 2L3.12132 9.87868C1.94975 11.0503 1.94975 12.9497 3.12132 14.1213L11 22" stroke-width="3" stroke-linecap="round"/>
+                </svg>
+            </button>
+            <h1 class="app-title-text">OneTap Notes</h1>
+            <div class="header-actions">
+                <button id="delete-selected-button" class="header-icon-button" aria-label="Delete selected notes" style="display: none;">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M6 19C6 20.1 6.9 21 8 21H16C17.1 21 18 20.1 18 19V7H6V19ZM19 4H15.5L14.5 3H9.5L8.5 4H5V6H19V4Z" /></svg>
+                </button>
+                <button id="theme-toggle-button" class="header-icon-button" aria-label="Toggle theme">
+                    <svg id="theme-icon-sun" width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M12 17C14.7614 17 17 14.7614 17 12C17 9.23858 14.7614 7 12 7C9.23858 7 7 9.23858 7 12C7 14.7614 9.23858 17 12 17ZM12 20V22M12 2V4M20.4853 12H22.4853M1.51472 12H3.51472M18.364 5.63604L19.7782 4.22183M4.22183 19.7782L5.63604 18.364M18.364 18.364L19.7782 19.7782M4.22183 4.22183L5.63604 5.63604" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                    <svg id="theme-icon-moon" style="display:none;" width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M21 12.79C21 17.79 16.97 22 12 22C9.1163 22 6.53204 20.7207 4.75073 18.706C4.52488 18.4407 4.23932 18.2227 3.91349 18.0669C3.80364 18.0111 3.70354 17.9223 3.62621 17.8113C2.99214 16.9273 2.69797 15.8507 2.79502 14.776C2.90931 13.494 3.45169 12.3096 4.32677 11.4345C5.20184 10.5595 6.38626 10.0171 7.66824 9.90279C8.74276 9.80574 9.81936 10.0999 10.7034 10.734C10.8143 10.8113 10.9031 10.9114 10.9589 11.0213C11.1148 11.3471 11.3327 11.6327 11.5981 11.8585C13.6123 10.0772 16.1966 8.79999 19 8.79999C19.7133 8.79999 20.4078 8.88196 21 9.03401V12.79Z" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                </button>
+                 <!-- Install Button Placeholder (for manual PWA install prompt) -->
+                <button id="install-app-button" class="header-icon-button" aria-label="Install App" style="display: none;">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M19 9h-4V3H9v6H5l7 7 7-7zM5 18v2h14v-2H5z"/></svg>
+                </button>
+            </div>
+        </header>
+
+        <main class="notes-content">
+            <div class="main-note-card">
+                <div class="note-meta">
+                    <span class="time" id="main-note-time"></span>
+                    <span class="day" id="main-note-day"></span>
+                    <span class="date" id="main-note-date"></span>
+                </div>
+                <div class="main-note-body">
+                    <textarea id="note-input" class="note-text-area" placeholder="Start writing..." autocapitalize="sentences" inputmode="text"></textarea>
+                    <button id="edit-save-button" style="display: none;">Edit</button>
+                </div>
+            </div>
+
+            <section id="previous-notes-section" class="previous-notes-section">
+                 <!-- Past notes will be dynamically inserted here by JS -->
+            </section>
+            <p id="no-notes-message" class="no-notes-message" style="display: none;">Your quick notes will appear here.</p>
+        </main>
+    </div>
+
+    <div id="confirmation-modal" class="modal" style="display:none;">
+        <div class="modal-content">
+            <p id="modal-message">Are you sure?</p>
+            <div class="modal-actions">
+                <button id="confirm-delete-button" class="button-danger">Delete</button>
+                <button id="cancel-delete-button">Cancel</button>
+            </div>
+        </div>
+    </div>
+    <script src="./script.js"></script>
+    <script>
+  if ('serviceWorker' in navigator) {
+    navigator.serviceWorker.register('./service-worker.js');
+  }
+</script>
+
+</body>
+</html>

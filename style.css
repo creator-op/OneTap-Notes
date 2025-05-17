@@ -1,0 +1,323 @@
+/* --- Theme Variables --- */
+:root {
+    --bg-color: #EAE6DE;
+    --card-bg-color: #FDFBF3;
+    --meta-bg-color: #F9F5E9;
+    --preview-card-bg-color: #F7F3EC;
+    --text-color: #5C5042;
+    --text-color-light: #7A7063;
+    --header-text-color: #000000;
+    --icon-color: #5D4037;
+    --border-color: #c5baa7;
+    --shadow-color: rgba(0, 0, 0, 0.08);
+    --shadow-color-light: rgba(0, 0, 0, 0.05);
+    --accent-color-danger: #D32F2F;
+    --selection-bg-color: #dce4f2; /* Softer selection */
+}
+
+[data-theme="dark"] {
+    --bg-color: #1f1f1f; /* Slightly darker body */
+    --card-bg-color: #2b2b2b; /* Darker cards */
+    --meta-bg-color: #363636;
+    --preview-card-bg-color: #272727;
+    --text-color: #e2e2e2;
+    --text-color-light: #b0b0b0;
+    --header-text-color: #f5f5f5;
+    --icon-color: #b0b0b0;
+    --border-color: #484848;
+    --shadow-color: rgba(255, 255, 255, 0.05);
+    --shadow-color-light: rgba(255, 255, 255, 0.03);
+    --accent-color-danger: #EF5350;
+    --selection-bg-color: #3a4a5c;
+}
+
+/* --- General Styles --- */
+html, body {
+    overscroll-behavior-y: contain; /* Prevent pull-to-refresh on body */
+}
+body {
+    margin: 0;
+    font-family: 'Inter', sans-serif;
+    background-color: var(--bg-color);
+    color: var(--text-color);
+    display: flex;
+    justify-content: center;
+    min-height: 100vh;
+    min-height: -webkit-fill-available;
+    height: 100vh;
+    padding-top: env(safe-area-inset-top, 0px); /* Let header handle top inset */
+    padding-bottom: env(safe-area-inset-bottom, 0px);
+    transition: background-color 0.3s ease, color 0.3s ease;
+    overflow: hidden; /* Main body should not scroll */
+}
+
+.app-container {
+    width: 100%;
+    max-width: 420px;
+    background-color: var(--bg-color);
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    transition: background-color 0.3s ease;
+    overflow: hidden; /* App container itself shouldn't scroll */
+}
+
+/* --- Header --- */
+.app-header {
+    display: flex;
+    align-items: center;
+    padding: 10px 10px 10px 15px; /* Adjusted padding for balance */
+    flex-shrink: 0;
+    position: relative;
+    padding-top: calc(env(safe-area-inset-top, 0px) + 10px); /* Add inset to header padding */
+    background-color: var(--bg-color); /* Match body */
+    z-index: 10; /* Keep header above scrolling content */
+}
+
+.back-button {
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 8px;
+    margin-right: 5px; /* Reduced margin */
+    display: flex;
+    align-items: center;
+    color: var(--icon-color);
+}
+.back-button svg path { stroke: currentColor; }
+
+.app-title-text {
+    font-family: 'Inter', sans-serif;
+    font-size: 18px;
+    font-weight: bold;
+    color: var(--header-text-color);
+    margin: 0;
+    flex-grow: 1;
+    text-align: center;
+    transition: color 0.3s ease;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    padding: 0 5px; /* Small padding around title */
+}
+
+.header-actions {
+    display: flex;
+    align-items: center;
+    gap: 0px; /* Space between icons */
+    margin-left: auto; /* Push actions to the right */
+    flex-shrink: 0;
+}
+
+.header-icon-button {
+    background: none;
+    border: none;
+    color: var(--icon-color);
+    cursor: pointer;
+    padding: 10px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.header-icon-button:hover { background-color: rgba(128, 128, 128, 0.1); }
+.header-icon-button svg { width: 22px; height: 22px; }
+
+.header-icon-button svg path,
+.header-icon-button svg circle,
+.header-icon-button svg line {
+    stroke: currentColor; /* Default to stroke */
+    fill: none; /* Default to no fill */
+}
+/* Specific overrides for filled icons */
+#delete-selected-button svg path { fill: currentColor; stroke: none; }
+#install-app-button svg path { fill: currentColor; stroke: none; }
+
+
+/* --- Main Note Card --- */
+.notes-content {
+    padding: 0 15px 15px 15px;
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
+    padding-bottom: calc(env(safe-area-inset-bottom, 0px) + 15px);
+}
+
+.main-note-card {
+    background-color: var(--card-bg-color);
+    border-radius: 20px;
+    padding: 15px;
+    margin-bottom: 20px;
+    box-shadow: 0 2px 6px var(--shadow-color);
+    display: flex;
+    flex-direction: column;
+    min-height: 220px; /* Adjusted for better balance */
+    flex-shrink: 0;
+    transition: background-color 0.3s ease;
+}
+
+.note-meta {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 15px;
+    padding: 8px 15px;
+    background-color: var(--meta-bg-color);
+    border-radius: 10px;
+    font-size: 12px;
+    color: var(--text-color-light);
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+.note-meta .time { font-weight: 500; }
+
+.main-note-body {
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+    position: relative;
+}
+
+.note-text-area {
+    font-family: 'Lora', serif;
+    font-size: 20px;
+    line-height: 1.7;
+    color: var(--text-color);
+    background-color: transparent;
+    border: none;
+    outline: none;
+    resize: none;
+    width: 100%;
+    flex-grow: 1;
+    padding: 5px 0;
+    transition: color 0.3s ease;
+    min-height: 100px; /* Ensure textarea has some min height */
+}
+.note-text-area::placeholder { color: var(--text-color-light); opacity: 0.7; }
+.note-text-area[readonly] { cursor: default; }
+
+#edit-save-button {
+    background-color: var(--meta-bg-color);
+    color: var(--text-color);
+    border: 1px solid var(--border-color);
+    padding: 8px 15px;
+    border-radius: 8px;
+    cursor: pointer;
+    margin-top: 10px;
+    align-self: flex-end; /* Aligns button to the right */
+    font-size: 13px;
+    font-weight: 500;
+}
+#edit-save-button:hover { opacity: 0.8; }
+
+/* --- Previous Notes --- */
+.previous-notes-section {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-top: 10px;
+}
+
+.note-preview-card {
+    background-color: var(--preview-card-bg-color);
+    border-radius: 15px;
+    padding: 12px 15px;
+    box-shadow: 0 1px 4px var(--shadow-color-light);
+    cursor: pointer;
+    border: 2px solid transparent;
+    transition: background-color 0.3s ease, border-color 0.2s ease;
+    position: relative;
+    -webkit-tap-highlight-color: transparent; /* Remove tap highlight on mobile */
+}
+.note-preview-card.selected {
+    border-color: var(--icon-color);
+    background-color: var(--selection-bg-color);
+}
+.note-preview-card.selection-mode::before {
+    content: '';
+    position: absolute;
+    left: -10px; /* Adjusted for better visual */
+    top: 50%;
+    transform: translateY(-50%);
+    width: 18px;
+    height: 18px;
+    border: 2px solid var(--border-color);
+    border-radius: 50%; /* Circular selection indicator */
+    background-color: var(--card-bg-color);
+    box-sizing: border-box;
+}
+.note-preview-card.selected::before {
+    background-color: var(--icon-color);
+    /* A more explicit checkmark could be added using an ::after pseudo-element with content:"\2713" and positioning */
+}
+
+.preview-date {
+    display: block;
+    font-size: 11px;
+    color: var(--text-color-light);
+    margin-bottom: 6px;
+    text-align: right;
+}
+.preview-text {
+    font-family: 'Inter', sans-serif;
+    font-size: 13px;
+    color: var(--text-color);
+    margin: 0;
+    line-height: 1.4;
+    border-bottom: 1.5px dashed var(--border-color);
+    padding-bottom: 8px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+.no-notes-message {
+    font-family: 'Inter', sans-serif;
+    color: var(--text-color-light);
+    text-align: center;
+    padding: 20px;
+    font-size: 14px;
+}
+
+/* --- Modal Styles --- */
+.modal {
+    position: fixed;
+    z-index: 1000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0,0,0,0.5);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 15px; /* Padding for modal itself */
+    box-sizing: border-box;
+}
+.modal-content {
+    background-color: var(--card-bg-color);
+    padding: 25px;
+    border-radius: 15px;
+    width: 100%; /* Take available width within padding */
+    max-width: 320px;
+    text-align: center;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+    color: var(--text-color);
+}
+.modal-content p { margin-top: 0; margin-bottom: 20px; font-size: 16px; }
+.modal-actions { display: flex; justify-content: space-around; gap: 10px; }
+.modal-actions button {
+    flex-grow: 1;
+    padding: 10px 15px;
+    border-radius: 8px;
+    border: 1px solid var(--border-color);
+    cursor: pointer;
+    font-weight: 500;
+    background-color: var(--meta-bg-color);
+    color: var(--text-color);
+}
+.modal-actions button.button-danger {
+    background-color: var(--accent-color-danger);
+    color: white;
+    border-color: var(--accent-color-danger);
+}

@@ -1,0 +1,25 @@
+{
+  "name": "OneTap Notes",
+  "short_name": "OneTap",
+  "description": "Quickly capture your thoughts and ideas.",
+  "start_url": "./index.html",
+  "scope": ".",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#EAE6DE",
+  "theme_color": "#FDFBF3",
+  "icons": [
+    {
+      "src": "./icon-192x192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "./icon-512x512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ]
+}
